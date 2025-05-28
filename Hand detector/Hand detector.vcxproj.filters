@@ -18,5 +18,28 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HandDetector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceDetection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HSVMask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HandDetector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Detector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSVMask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

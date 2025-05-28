@@ -132,7 +132,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FaceDetection.cpp" />
+    <ClCompile Include="HandDetector.cpp" />
+    <ClCompile Include="HSVMask.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Detector.h" />
+    <ClInclude Include="FaceDetection.h" />
+    <ClInclude Include="HandDetector.h" />
+    <ClInclude Include="HSVMask.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
