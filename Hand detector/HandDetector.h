@@ -6,12 +6,15 @@
 #include <vector>
 #include <string>
 #include "HSVMask.h"
+#include "Detector.h"
 
-class HandDetector {
+class HandDetector : public Detector {
 public:
     HandDetector(const std::string& cascadePath, bool debug = true);
-    void detect(const cv::Mat& srcMaskImg, cv::Mat& output);
-    std::string name() const;
+    void detect(cv::Mat& img) override; 
+    void setMask(const cv::Mat& maskInput);
+    void setDebugMode(bool value);
+    std::string name() const override;  
     cv::Mat getMask() const;
 
 private:

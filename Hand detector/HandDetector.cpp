@@ -11,12 +11,16 @@ HandDetector::HandDetector(const std::string& cascadePath, bool debug)
     }
 }
 
-void HandDetector::detect(const cv::Mat& srcMaskImg, cv::Mat& output) {
-    mask = srcMaskImg;
+void HandDetector::detect(cv::Mat& output) {
     detectFists(output);
     getContours(mask, output);
 }
-
+void HandDetector::setMask(const cv::Mat& maskInput) {
+    mask = maskInput;
+}
+void HandDetector::setDebugMode(bool value) {
+    debugMode = value;
+}
 std::string HandDetector::name() const {
     return "HandDetector";
 }
@@ -55,7 +59,7 @@ void HandDetector::getContours(cv::Mat imgDil, cv::Mat& drawImg) {
     std::vector<std::vector<cv::Point>> contours;
     std::vector<cv::Vec4i> hierarchy;
     cv::findContours(imgDil, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-
+    bool textDrawn = false;
     for (const auto& contour : contours) {
         int area = cv::contourArea(contour);
         if (area > 8000) {
@@ -87,7 +91,7 @@ void HandDetector::getContours(cv::Mat imgDil, cv::Mat& drawImg) {
                 float depth = d[3] / 256.0f;
                 double ang = angleBetween(start, far, end);
 
-                if (depth > 30 && ang < 110 && start.y < centerY && end.y < centerY) {
+                if (depth > 55 && ang < 110 && start.y < centerY && end.y < centerY) {
                     fingerTipsCandidates.push_back(start);
                     fingerTipsCandidates.push_back(end);
                     validDefectsCount++;
@@ -95,7 +99,7 @@ void HandDetector::getContours(cv::Mat imgDil, cv::Mat& drawImg) {
             }
 
             std::vector<cv::Point> fingerTips;
-            const int thresholdDist = 20;
+            const int thresholdDist = 15;
 
             if (validDefectsCount >= 1) {
                 for (auto& pt : fingerTipsCandidates) {
@@ -139,11 +143,17 @@ void HandDetector::getContours(cv::Mat imgDil, cv::Mat& drawImg) {
 
             if (fingerTips.size() > 5) fingerTips.resize(5);
 
-            cv::putText(drawImg, "Fingers: " + std::to_string(fingerTips.size()),
-                cv::Point(10, 50), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 255), 2);
+            if (!textDrawn) {
+                std::string label = (fingerTips.size() == 0) ? "Fist" : "Fingers: " + std::to_string(fingerTips.size());
+                cv::putText(drawImg, label,
+                    cv::Point(10, 50), cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 255), 2);
+                textDrawn = true;
+            }
 
-            for (auto& pt : fingerTips) {
-                cv::circle(drawImg, pt, 10, cv::Scalar(0, 255, 0), cv::FILLED);
+            if (debugMode) {
+                for (auto& pt : fingerTips) {
+                    cv::circle(drawImg, pt, 10, cv::Scalar(0, 255, 0), cv::FILLED);
+                }
             }
         }
     }

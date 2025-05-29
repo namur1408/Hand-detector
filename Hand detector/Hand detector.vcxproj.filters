@@ -41,8 +41,5 @@
     <ClInclude Include="HSVMask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigTrackbars.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
