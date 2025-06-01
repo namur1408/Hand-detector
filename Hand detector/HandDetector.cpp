@@ -28,7 +28,9 @@ std::string HandDetector::name() const {
 cv::Mat HandDetector::getMask() const {
     return mask;
 }
-
+bool HandDetector::getDebugMode() const {
+    return debugMode;
+}
 double HandDetector::angleBetween(cv::Point a, cv::Point b, cv::Point c) {
     double ab = cv::norm(a - b);
     double bc = cv::norm(b - c);

@@ -14,6 +14,7 @@ public:
     void detect(cv::Mat& img) override; 
     void setMask(const cv::Mat& maskInput);
     void setDebugMode(bool value);
+    bool getDebugMode() const;
     std::string name() const override;  
     cv::Mat getMask() const;
 

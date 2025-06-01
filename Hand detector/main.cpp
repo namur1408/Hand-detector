@@ -31,7 +31,6 @@ int main() {
 
         img.copyTo(imgMaskSrc);
         detectors[0]->detect(imgMaskSrc);
-
         hsvMask.updateMask(imgMaskSrc);
         handPtr->setMask(hsvMask.getMask());
         handPtr->setDebugMode(hsvMask.getDebugMode());
